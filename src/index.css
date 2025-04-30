@@ -1,0 +1,15 @@
+/* index.css */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+html {
+  scroll-behavior: smooth;
+}
+
+/* Example global dark mode styles */
+@layer base {
+  html.dark { background-color: #111827; color: #F9FAFB; }
+}
+
+
+
