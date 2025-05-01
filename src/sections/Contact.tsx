@@ -33,7 +33,7 @@ const Contact = () => {
     <section
       id="contact"
       style={{ minHeight: "100vh" }}
-      className="py-20 px-6 md:px-20 bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-100 transition-all duration-500"
+      className="py-16 px-6 md:px-20 scroll-mt-20 min-h-screen bg-gradient-to-tr from-white via-slate-100 to-white dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 text-gray-800 dark:text-gray-100 transition-all duration-500"
     >
       <div className="max-w-5xl mx-auto">
         <motion.h2

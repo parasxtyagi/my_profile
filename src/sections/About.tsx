@@ -13,7 +13,7 @@ const About = () => {
 
     if (ref.current) observer.observe(ref.current);
 
-    return () => observer.disconnect(); // clean up observer on unmount
+    return () => observer.disconnect();  
   }, []);
 
   const stats = [
@@ -23,10 +23,10 @@ const About = () => {
   ];
 
   return (
-    <section
+    <section 
       id="about"
       ref={ref}
-      className="py-16 px-6 md:px-20 scroll-mt-20 min-h-screen bg-gradient-to-br from-white via-slate-100 to-white dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 text-gray-800 dark:text-gray-100 transition-all duration-500"
+      className="py-16 px-6 md:px-20 scroll-mt-20 min-h-screen bg-gradient-to-tr from-white via-slate-100 to-white dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 text-gray-800 dark:text-gray-100 transition-all duration-500"
     >
       <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-12 items-center">
         {/* Image */}
