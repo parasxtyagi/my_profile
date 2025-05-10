@@ -1,15 +1,27 @@
-/* index.css */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
 html {
   scroll-behavior: smooth;
 }
 
 /* Example global dark mode styles */
 @layer base {
-  html.dark { background-color: #111827; color: #F9FAFB; }
+  html.dark {
+    background-color: #111827;
+    color: #F9FAFB;
+  }
 }
 
+/* ——— Animated Gradient Utilities ——— */
+.bg-animated-gradient {
+  /* Remove `@apply bg-animated-gradient` to avoid the circular dependency */
+  @apply bg-[length:200%_200%] animate-gradient-x;
+  background-image: linear-gradient(270deg, #ffffff, #f3f4f6, #ffffff);
+}
 
-
+.dark .bg-animated-gradient-dark {
+  @apply bg-[length:200%_200%] animate-gradient-x;
+  background-image: linear-gradient(270deg, #111827, #1f2937, #111827);
+}

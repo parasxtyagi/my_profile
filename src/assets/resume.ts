@@ -10,9 +10,9 @@ export const resumeData = {
     ],
     education: [
       {
-        degree: "B.Tech in Computer Science",
-        institution: "XYZ University",
-        date: "2019 - 2023",
+        degree: "BCA in Computer Science",
+        institution: "GLA University",
+        date: "2023 - present",
         description: "Completed core CS courses with specialization in full-stack web development and machine learning."
       },
     ],
