@@ -1,5 +1,5 @@
 // src/components/Navbar.tsx
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useDarkMode } from '../hooks/useDarkMode';
 import { Sun, Moon } from 'lucide-react';
 

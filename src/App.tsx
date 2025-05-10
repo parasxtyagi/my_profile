@@ -1,6 +1,6 @@
 // src/App.tsx
 
-import React, { useLayoutEffect, useRef } from 'react';
+import  { useLayoutEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Navbar from './components/Navbar';
@@ -21,7 +21,7 @@ export default function App() {
 
   useLayoutEffect(() => {
     // build an animation for each registered section
-    const animations = Object.entries(sectionsRef.current).map(([id, el]) => {
+    const animations = Object.entries(sectionsRef.current).map(([ el]) => {
       if (!el) return null;
       return gsap.fromTo(
         el,
