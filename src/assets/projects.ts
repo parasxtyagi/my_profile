@@ -5,7 +5,7 @@ export const projects = [
     tech: ["React", "MUi", "BootStrap", "Node.js", "MongoDB"],
     image: "/images/react-shopcart.png",
     github: "https://github.com/parasxtyagi",
-    demo: "https://ecommercesiteweb.netlify.app",
+    demo: "https://yourshopcart.netlify.app/",
   },
 
   {
