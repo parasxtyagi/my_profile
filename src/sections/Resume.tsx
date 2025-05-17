@@ -13,13 +13,12 @@ const Resume = () => {
           <h2 className="text-4xl font-bold text-indigo-600 dark:text-indigo-400">
             Resume
           </h2>
-          <a
-            href={resumeData.cvLink}
-            download
+          <a href="/Paras_Tyagi_CV.docx" download="Paras_Resume.docx"
             className="bg-indigo-600 text-white px-6 py-2 rounded-lg hover:bg-indigo-700 transition"
           >
             Download CV
           </a>
+
         </div>
 
         {/* Experience */}
