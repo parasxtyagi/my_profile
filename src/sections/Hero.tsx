@@ -6,20 +6,17 @@ import { loadPolygonMaskPlugin } from "@tsparticles/plugin-polygon-mask";
 import heroAnim from "../assets/anim/hero-loop.json";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-// Import the Spline React component
-import Spline from "@splinetool/react-spline";
 
 // Register ScrollTrigger plugin
 gsap.registerPlugin(ScrollTrigger);
 
 export default function Hero() {
   const ref = useRef<HTMLElement>(null);
+  const imgRef = useRef<HTMLDivElement>(null);
   const textRef = useRef<HTMLDivElement>(null);
-  const splineRef = useRef<HTMLDivElement>(null); // Ref for the Spline container
-  const imgRef = useRef<HTMLDivElement>(null); // Ref for the original image container
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
 
-  // Mouse move → parallax effect applied to the Spline scene
+  // Mouse move → parallax
   const handleMouseMove = (e: MouseEvent) => {
     const { left, top, width, height } = ref.current!.getBoundingClientRect();
     const x = ((e.clientX - left) / width - 0.5) * 20;
@@ -27,17 +24,16 @@ export default function Hero() {
     setMousePos({ x, y });
   };
 
-  // tsparticles plugin initialization
+  // tsparticles plugin init
   const particlesInit = async (main: any) => {
     await loadPolygonMaskPlugin(main);
   };
 
-  // GSAP Scroll Animation for all three main sections
+  // GSAP Scroll Animation
   useLayoutEffect(() => {
-    if (!ref.current || !textRef.current || !splineRef.current || !imgRef.current) return;
+    if (!ref.current || !textRef.current || !imgRef.current) return;
 
     const ctx = gsap.context(() => {
-      // Animation for the Left Side Text
       gsap.fromTo(
         textRef.current,
         { opacity: 0, y: 60 },
@@ -54,24 +50,6 @@ export default function Hero() {
         }
       );
 
-      // Animation for the Middle Spline Scene
-      gsap.fromTo(
-        splineRef.current,
-        { opacity: 0, scale: 0.9 },
-        {
-          opacity: 1,
-          scale: 1,
-          duration: 1.2,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: ref.current,
-            start: "top 80%",
-            toggleActions: "play none none reverse",
-          },
-        }
-      );
-
-      // Animation for the Right Side Image
       gsap.fromTo(
         imgRef.current,
         { opacity: 0, scale: 0.9 },
@@ -98,9 +76,9 @@ export default function Hero() {
       ref={ref}
       onMouseMove={handleMouseMove}
       className="relative min-h-screen flex flex-col-reverse md:flex-row items-center justify-between px-6 md:px-16 py-10 scroll-mt-20
-                   bg-animated-gradient dark:bg-animated-gradient-dark transition-colors duration-1000 overflow-hidden"
+                 bg-animated-gradient dark:bg-animated-gradient-dark transition-colors duration-1000 overflow-hidden"
     >
-      {/* Particles Overlay (background effect) */}
+      {/* Particles Overlay */}
       <Particles
         id="tsparticles"
         init={particlesInit}
@@ -118,7 +96,7 @@ export default function Hero() {
         className="absolute inset-0 pointer-events-none"
       />
 
-      {/* Lottie Animation (background effect) */}
+      {/* Lottie Animation */} 
       <Lottie
         animationData={heroAnim}
         loop
@@ -126,14 +104,13 @@ export default function Hero() {
         className="absolute inset-0 w-full h-full object-cover opacity-10 pointer-events-none"
       />
 
-      {/* Left Side Text Content */}
+      {/* Left Side Text */}
       <div
         ref={textRef}
-        // On medium screens and up, this takes 1/3rd width
-        className="z-10 text-center md:text-left md:w-1/3 space-y-6 opacity-0 mb-10 md:mb-0"
+        className="z-10 text-center md:text-left md:w-1/2 space-y-6 opacity-0"
       >
         <h1 className="text-4xl sm:text-5xl font-extrabold text-gray-800 dark:text-white leading-tight">
-          Hi, I'm{" "}
+          Hi, I’m{" "}
           <motion.span
             className="text-indigo-600 dark:text-indigo-400 inline-block"
             whileHover={{ scale: 1.1, rotate: 3 }}
@@ -143,8 +120,7 @@ export default function Hero() {
           </motion.span>
         </h1>
         <p className="text-lg text-gray-600 dark:text-gray-300 max-w-md leading-relaxed mx-auto md:mx-0">
-          I build scalable, performant, and user‑focused web apps. Let's
-          collaborate and bring ideas to life!
+          I build scalable, performant, and user‑focused web apps. Let’s collaborate and bring ideas to life!
         </p>
         <div className="flex justify-center md:justify-start gap-4">
           <motion.a
@@ -164,37 +140,18 @@ export default function Hero() {
         </div>
       </div>
 
-      {/* Middle Spline Embed */}
-      <div
-        ref={splineRef}
-        className="z-10 md:w-1/3 mb-10 md:mb-0 opacity-0 flex items-center justify-center relative"
-        style={{
-          transform: `translate(${mousePos.x}px, ${mousePos.y}px)`,
-          height: "min(70vh, 600px)",
-          width: "100%",
-          position: "relative",
-          overflow: "hidden",
-        }}
-      >
-        <div className="absolute inset-0 flex items-center justify-center">
-          <div className="relative w-full h-full">
-            <Spline 
-              scene="https://prod.spline.design/pgadyhQEmkccZWqg/scene.splinecode"
-              className="absolute top-1/2 left-[60%] md:left-[55%] -translate-x-1/2 -translate-y-1/2 w-full h-full"
-            />
-          </div>
-        </div>
-      </div>
-
-      {/* Right Side Hero Image */}
+      {/* Right Side Image */}
       <div
         ref={imgRef}
-        className="z-10 md:w-1/3 mb-10 md:mb-0 opacity-0 flex items-center justify-center"
+        className="z-10 md:w-1/2 mb-10 md:mb-0 opacity-0"
+        style={{
+          transform: `translate(${mousePos.x}px, ${mousePos.y}px)`,
+        }}
       >
         <img
           src="/images/hero.png"
           alt="Hero Illustration"
-          className="w-full max-w-lg mx-auto drop-shadow-xl hover:scale-105 transition-transform duration-500 rounded-2xl"
+          className="w-full max-w-md mx-auto drop-shadow-xl hover:scale-105 transition-transform duration-500 rounded-2xl"
         />
       </div>
     </section>
