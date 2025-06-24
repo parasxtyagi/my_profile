@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { FaLinkedin, FaGithub, FaEnvelope, FaArrowUp } from 'react-icons/fa';
+import { FaLinkedin, FaGithub, FaEnvelope,  } from 'react-icons/fa';
 
 const Footer = () => {
   const socialLinks = [

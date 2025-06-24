@@ -16,19 +16,19 @@ import {
   SiTypescript,
   SiExpress, // Added Express
   SiMongoose, // Added Mongoose
-  SiRedux, // Added Redux
+  // SiRedux, 
   SiWebpack, // Added Webpack
   SiBabel, // Added Babel
   SiPostman, // Added Postman
   SiVercel, // Added Vercel
   SiNetlify, // Added Netlify
   SiVite, // Added Vite
-  SiJira, // Added Jira
-  SiJest, // Added Jest
+  // SiJira, 
+  // SiJest, 
   SiTestinglibrary, // Added React Testing Library
   SiSocketdotio, // Added Socket.IO
   SiGraphql, // Added GraphQL
-  SiPrisma, // Added Prisma (for ORM alternative)
+  // SiPrisma, 
   SiDocker, // Added Docker
 } from "react-icons/si";
 import { DiAws } from "react-icons/di"; // Added AWS
