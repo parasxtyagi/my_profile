@@ -33,7 +33,7 @@ const Skills = () => {
       y: 0,
       opacity: 1,
       transition: {
-        type: "spring",
+        type: "spring" as const,
         stiffness: 100,
         damping: 10,
       },
@@ -61,6 +61,7 @@ const Skills = () => {
       ref={ref}
       className="py-20 px-6 md:px-20 scroll-mt-20 min-h-screen bg-gradient-to-br from-white via-slate-100 to-white dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 text-gray-800 dark:text-gray-100 transition-all duration-500 relative overflow-hidden"
     >
+      {/* Background bubbles */}
       <div className="absolute inset-0 overflow-hidden opacity-10 dark:opacity-5 pointer-events-none">
         {[...Array(12)].map((_, i) => (
           <div

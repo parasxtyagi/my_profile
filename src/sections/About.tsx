@@ -27,9 +27,9 @@ const About = () => {
       opacity: 1,
       transition: {
         staggerChildren: 0.1,
-        delayChildren: 0.3
-      }
-    }
+        delayChildren: 0.3,
+      } as const,
+    },
   };
 
   const itemVariants = {
@@ -38,11 +38,11 @@ const About = () => {
       y: 0,
       opacity: 1,
       transition: {
-        type: "spring",
+        type: "spring" as const,
         stiffness: 100,
-        damping: 10
-      }
-    }
+        damping: 10,
+      },
+    },
   };
 
   return (
@@ -72,9 +72,9 @@ const About = () => {
               opacity: 1, 
               x: 0,
               transition: { 
-                type: "spring", 
+                type: "spring" as const,
                 stiffness: 100,
-                damping: 10
+                damping: 10,
               }
             }
           }}
@@ -114,7 +114,7 @@ const About = () => {
             className="space-y-4 mb-8"
             variants={itemVariants}
           >
-            {[
+            {[ 
               "🌐 Expertise in React, TypeScript, and Node.js",
               "🚀 Passionate about performance, animations & clean UI",
               "🛠️ Love to solve real-world problems through tech",

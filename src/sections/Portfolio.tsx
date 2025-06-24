@@ -1,6 +1,6 @@
-// Portfolio.tsx
+// src/components/Portfolio.tsx
 import { projects } from "../assets/projects";
-import { motion, useAnimation, useInView } from "framer-motion";
+import { motion, useAnimation, useInView, Variants } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 
 const Portfolio = () => {
@@ -27,7 +27,8 @@ const Portfolio = () => {
     }
   }, [isInView, controls]);
 
-  const container = {
+  // ✅ Add explicit types to fix TypeScript complaints
+  const container: Variants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
@@ -37,13 +38,13 @@ const Portfolio = () => {
     },
   };
 
-  const item = {
+  const item: Variants = {
     hidden: { y: 50, opacity: 0 },
     visible: {
       y: 0,
       opacity: 1,
       transition: {
-        type: "spring",
+        type: "spring", // Valid type
         stiffness: 100,
         damping: 10,
       },

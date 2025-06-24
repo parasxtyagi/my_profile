@@ -1,6 +1,5 @@
-// Resume.tsx
-import { resumeData } from "../assets/resume"; // Ensure this path is correct
-import { motion, useAnimation, useInView } from "framer-motion";
+import { resumeData } from "../assets/resume";
+import { motion, useAnimation, useInView, Variants } from "framer-motion";
 import { useEffect, useRef } from "react";
 import { FaDownload, FaBriefcase, FaGraduationCap, FaCertificate } from "react-icons/fa";
 
@@ -15,7 +14,7 @@ const Resume = () => {
     }
   }, [isInView, controls]);
 
-  const container = {
+  const container: Variants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
@@ -25,14 +24,13 @@ const Resume = () => {
     },
   };
 
-  // This 'item' defines the animation for each individual item
-  const item = {
+  const item: Variants = {
     hidden: { y: 20, opacity: 0 },
     visible: {
       y: 0,
       opacity: 1,
       transition: {
-        type: "spring",
+        type: "spring" as const,
         stiffness: 100,
         damping: 10,
       },
@@ -71,114 +69,64 @@ const Resume = () => {
           </motion.a>
         </motion.div>
 
-        {/* Experience */}
-        <motion.div
-          className="mb-16"
-          initial="hidden"
-          animate={controls}
-          variants={container} // Apply container variants here
-        >
-          <motion.div
-            className="flex items-center gap-4 mb-8"
-            variants={item} // Apply item variants to the heading block
-          >
+        {/* Experience Section */}
+        <motion.div initial="hidden" animate={controls} variants={container} className="mb-16">
+          <motion.div className="flex items-center gap-4 mb-8" variants={item}>
             <div className="p-3 bg-indigo-100 dark:bg-indigo-900 rounded-full text-indigo-600 dark:text-indigo-300">
               <FaBriefcase className="text-xl" />
             </div>
-            <h3 className="text-2xl sm:text-3xl font-semibold text-gray-800 dark:text-gray-100">
-              Experience
-            </h3>
+            <h3 className="text-2xl sm:text-3xl font-semibold">Experience</h3>
           </motion.div>
 
           <div className="space-y-8 pl-4 sm:pl-16 border-l-2 border-indigo-200 dark:border-indigo-900">
-            {resumeData.experience.map((expItem, i) => ( // Renamed 'item' to 'expItem' for clarity
-              <motion.div
-                key={i}
-                className="relative pl-8"
-                variants={item} // Correctly apply 'item' variants here
-                whileHover={{ x: 5 }}
-              >
+            {resumeData.experience.map((expItem, i) => (
+              <motion.div key={i} className="relative pl-8" variants={item} whileHover={{ x: 5 }}>
                 <div className="absolute left-0 top-1 w-4 h-4 bg-indigo-600 rounded-full -translate-x-1/2"></div>
                 <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-md hover:shadow-lg transition-shadow">
-                  <h4 className="text-lg sm:text-xl font-medium text-gray-800 dark:text-gray-100">
+                  <h4 className="text-lg sm:text-xl font-medium">
                     {expItem.role} —{" "}
-                    <span className="text-indigo-600 dark:text-indigo-400">
-                      {expItem.company}
-                    </span>
+                    <span className="text-indigo-600 dark:text-indigo-400">{expItem.company}</span>
                   </h4>
-                  <p className="text-sm text-indigo-500 dark:text-indigo-300 mb-3">
-                    {expItem.date}
-                  </p>
-                  <p className="text-gray-600 dark:text-gray-300">
-                    {expItem.description}
-                  </p>
+                  <p className="text-sm text-indigo-500 dark:text-indigo-300 mb-3">{expItem.date}</p>
+                  <p className="text-gray-600 dark:text-gray-300">{expItem.description}</p>
                 </div>
               </motion.div>
             ))}
           </div>
         </motion.div>
 
-        {/* Education */}
-        <motion.div
-          className="mb-16"
-          initial="hidden"
-          animate={controls}
-          variants={container} // Apply container variants here
-        >
-          <motion.div
-            className="flex items-center gap-4 mb-8"
-            variants={item} // Apply item variants to the heading block
-          >
+        {/* Education Section */}
+        <motion.div initial="hidden" animate={controls} variants={container} className="mb-16">
+          <motion.div className="flex items-center gap-4 mb-8" variants={item}>
             <div className="p-3 bg-indigo-100 dark:bg-indigo-900 rounded-full text-indigo-600 dark:text-indigo-300">
               <FaGraduationCap className="text-xl" />
             </div>
-            <h3 className="text-2xl sm:text-3xl font-semibold text-gray-800 dark:text-gray-100">
-              Education
-            </h3>
+            <h3 className="text-2xl sm:text-3xl font-semibold">Education</h3>
           </motion.div>
 
           <div className="space-y-8 pl-4 sm:pl-16 border-l-2 border-indigo-200 dark:border-indigo-900">
-            {resumeData.education.map((eduItem, i) => ( // Renamed 'item' to 'eduItem'
-              <motion.div
-                key={i}
-                className="relative pl-8"
-                variants={item} // Correctly apply 'item' variants here
-                whileHover={{ x: 5 }}
-              >
+            {resumeData.education.map((eduItem, i) => (
+              <motion.div key={i} className="relative pl-8" variants={item} whileHover={{ x: 5 }}>
                 <div className="absolute left-0 top-1 w-4 h-4 bg-indigo-600 rounded-full -translate-x-1/2"></div>
                 <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-md hover:shadow-lg transition-shadow">
-                  <h4 className="text-lg sm:text-xl font-medium text-gray-800 dark:text-gray-100">
-                    {eduItem.degree}
-                  </h4>
+                  <h4 className="text-lg sm:text-xl font-medium">{eduItem.degree}</h4>
                   <p className="text-sm text-indigo-500 dark:text-indigo-300 mb-3">
                     {eduItem.institution} — {eduItem.date}
                   </p>
-                  <p className="text-gray-600 dark:text-gray-300">
-                    {eduItem.description}
-                  </p>
+                  <p className="text-gray-600 dark:text-gray-300">{eduItem.description}</p>
                 </div>
               </motion.div>
             ))}
           </div>
         </motion.div>
 
-        {/* Certifications */}
-        <motion.div
-          className="mb-16"
-          initial="hidden"
-          animate={controls}
-          variants={container} // Apply container variants here
-        >
-          <motion.div
-            className="flex items-center gap-4 mb-8"
-            variants={item} // Apply item variants to the heading block
-          >
+        {/* Certifications Section */}
+        <motion.div initial="hidden" animate={controls} variants={container} className="mb-16">
+          <motion.div className="flex items-center gap-4 mb-8" variants={item}>
             <div className="p-3 bg-indigo-100 dark:bg-indigo-900 rounded-full text-indigo-600 dark:text-indigo-300">
               <FaCertificate className="text-xl" />
             </div>
-            <h3 className="text-2xl sm:text-3xl font-semibold text-gray-800 dark:text-gray-100">
-              Certifications
-            </h3>
+            <h3 className="text-2xl sm:text-3xl font-semibold">Certifications</h3>
           </motion.div>
 
           <div className="grid sm:grid-cols-2 gap-6">
@@ -186,16 +134,14 @@ const Resume = () => {
               <motion.div
                 key={i}
                 className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-md hover:shadow-lg transition-shadow"
-                variants={item} // Correctly apply 'item' variants here
+                variants={item}
                 whileHover={{ y: -5 }}
               >
-                <h4 className="text-lg font-medium text-gray-800 dark:text-gray-100 mb-2">
-                  {cert.title}
-                </h4>
+                <h4 className="text-lg font-medium mb-2">{cert.title}</h4>
                 <p className="text-sm text-indigo-500 dark:text-indigo-300 mb-3">
                   {cert.issuer}, {cert.date}
                 </p>
-                {cert.link && ( // This check now works correctly due to optional 'link'
+                {cert.link && (
                   <a
                     href={cert.link}
                     target="_blank"
@@ -210,27 +156,18 @@ const Resume = () => {
           </div>
         </motion.div>
 
-        {/* Skills */}
-        <motion.div
-          initial="hidden"
-          animate={controls}
-          variants={container} // Apply container variants here
-        >
-          <motion.h3
-            className="text-2xl sm:text-3xl font-semibold mb-8 text-gray-800 dark:text-gray-100"
-            variants={item} // Apply item variants to the heading
-          >
+        {/* Skills Section */}
+        <motion.div initial="hidden" animate={controls} variants={container}>
+          <motion.h3 className="text-2xl sm:text-3xl font-semibold mb-8" variants={item}>
             Skills
           </motion.h3>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
             <motion.div
               className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-md hover:shadow-lg transition-shadow"
-              variants={item} // Correctly apply 'item' variants here
+              variants={item}
               whileHover={{ y: -5 }}
             >
-              <h4 className="font-medium text-lg text-indigo-600 dark:text-indigo-400 mb-4">
-                Technical Skills
-              </h4>
+              <h4 className="font-medium text-lg text-indigo-600 dark:text-indigo-400 mb-4">Technical Skills</h4>
               <div className="flex flex-wrap gap-3">
                 {resumeData.skills.technical.map((skill, i) => (
                   <motion.span
@@ -245,12 +182,10 @@ const Resume = () => {
             </motion.div>
             <motion.div
               className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-md hover:shadow-lg transition-shadow"
-              variants={item} // Correctly apply 'item' variants here
+              variants={item}
               whileHover={{ y: -5 }}
             >
-              <h4 className="font-medium text-lg text-emerald-600 dark:text-emerald-400 mb-4">
-                Soft Skills
-              </h4>
+              <h4 className="font-medium text-lg text-emerald-600 dark:text-emerald-400 mb-4">Soft Skills</h4>
               <div className="flex flex-wrap gap-3">
                 {resumeData.skills.soft.map((skill, i) => (
                   <motion.span
