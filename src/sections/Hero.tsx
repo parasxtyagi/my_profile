@@ -1,9 +1,8 @@
 import { useRef, useState, MouseEvent, useLayoutEffect } from "react";
 import Lottie from "lottie-react";
 import { motion } from "framer-motion";
-import Particles from "react-tsparticles";
-import { Engine } from "tsparticles-engine";
-import { loadPolygonMaskPlugin } from "@tsparticles/plugin-polygon-mask";
+import Particles from "@tsparticles/react";
+import particlesConfig from "../config/particlesConfig";
 import heroAnim from "../assets/anim/hero-loop.json";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -24,50 +23,17 @@ export default function Hero() {
     setMousePos({ x, y });
   };
 
-  // Fixed particles initialization with proper typing
-  const particlesInit = async (engine: Engine) => {
-    try {
-      await loadPolygonMaskPlugin(engine);
-    } catch (error) {
-      console.error("Error loading particles plugin:", error);
-    }
-  };
-
   useLayoutEffect(() => {
     if (!ref.current || !textRef.current || !imgRef.current) return;
 
     const ctx = gsap.context(() => {
-      // Make elements visible by default with null checks
-      if (textRef.current && imgRef.current) {
-        gsap.set([textRef.current, imgRef.current], { opacity: 1 });
-      }
-
-      // Text animation with null checks
-      if (textRef.current && ref.current) {
-        const textElements = textRef.current.querySelectorAll("*");
-        if (textElements.length > 0) {
-          gsap.from(textElements, {
-            y: 30,
-            opacity: 0,
-            duration: 0.8,
-            stagger: 0.1,
-            ease: "power2.out",
-            scrollTrigger: {
-              trigger: ref.current,
-              start: "top 80%",
-              toggleActions: "play none none none"
-            }
-          });
-        }
-      }
-
-      // Image animation with null checks
-      if (imgRef.current && ref.current) {
-        gsap.from(imgRef.current, {
+      const textElements = textRef.current?.querySelectorAll("*") ?? [];
+      if (textElements.length > 0) {
+        gsap.from(textElements, {
+          y: 30,
           opacity: 0,
-          y: 50,
-          scale: 0.9,
-          duration: 1,
+          duration: 0.8,
+          stagger: 0.1,
           ease: "power2.out",
           scrollTrigger: {
             trigger: ref.current,
@@ -76,6 +42,19 @@ export default function Hero() {
           }
         });
       }
+
+      gsap.from(imgRef.current, {
+        opacity: 0,
+        y: 50,
+        scale: 0.9,
+        duration: 1,
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: ref.current,
+          start: "top 80%",
+          toggleActions: "play none none none"
+        }
+      });
     }, ref);
 
     return () => ctx.revert();
@@ -89,33 +68,14 @@ export default function Hero() {
       className="relative min-h-screen flex flex-col-reverse md:flex-row items-center justify-between px-6 md:px-16 py-10 scroll-mt-20
                  bg-animated-gradient dark:bg-animated-gradient-dark transition-colors duration-1000 overflow-hidden"
     >
-      {/* Particles Overlay with simplified options */}
+      {/* ✅ Particles without init */}
       <Particles
         id="tsparticles"
-        init={particlesInit}
-        options={{
-          fullScreen: { enable: false },
-          particles: {
-            number: { value: 30 },
-            color: { value: "#ffffff" },
-            shape: { type: "circle" }, // Simplified from polygon
-            opacity: { value: 0.1 },
-            size: { value: 3 },
-            move: { speed: 0.5 },
-          },
-          interactivity: {
-            events: {
-              onHover: {
-                enable: true,
-                mode: "repulse"
-              }
-            }
-          }
-        }}
+        options={particlesConfig}
         className="absolute inset-0 pointer-events-none"
       />
 
-      {/* Lottie Animation */} 
+      {/* Background Lottie */}
       <Lottie
         animationData={heroAnim}
         loop
@@ -123,7 +83,7 @@ export default function Hero() {
         className="absolute inset-0 w-full h-full object-cover opacity-10 pointer-events-none"
       />
 
-      {/* Left Side Text */}
+      {/* Left Text Section */}
       <div
         ref={textRef}
         className="z-10 text-center md:text-left md:w-1/2 space-y-6"
@@ -159,7 +119,7 @@ export default function Hero() {
         </div>
       </div>
 
-      {/* Right Side Image */}
+      {/* Right Image Section */}
       <div
         ref={imgRef}
         className="z-10 md:w-1/2 mb-10 md:mb-0"
