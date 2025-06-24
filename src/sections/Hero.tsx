@@ -66,8 +66,6 @@ export default function Hero() {
       className="relative min-h-screen flex flex-col-reverse md:flex-row items-center justify-between px-6 md:px-16 py-10 scroll-mt-20
                  bg-animated-gradient dark:bg-animated-gradient-dark transition-colors duration-1000 overflow-hidden"
     >
-      {/* ❌ Removed Particles */}
-
       {/* ✅ Background Lottie */}
       <Lottie
         animationData={heroAnim}
@@ -76,12 +74,16 @@ export default function Hero() {
         className="absolute inset-0 w-full h-full object-cover opacity-10 pointer-events-none"
       />
 
-      {/* ✅ Left Text Section */}
-      <div
-        ref={textRef}
-        className="z-10 text-center md:text-left md:w-1/2 space-y-6"
-      >
-        <h1 className="text-4xl sm:text-5xl font-extrabold text-gray-800 dark:text-white leading-tight">
+      {/* ✅ Left Text Section with local blob */}
+      <div className="relative z-10 text-center md:text-left md:w-1/2 space-y-6" ref={textRef}>
+        {/* Blob behind text */}
+        <motion.div
+          className="absolute -top-10 -left-10 w-72 h-72 bg-indigo-500 opacity-20 rounded-full filter blur-3xl pointer-events-none"
+          animate={{ y: [0, 20, 0], x: [0, 10, 0] }}
+          transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
+        />
+
+        <h1 className="text-4xl sm:text-5xl font-extrabold text-gray-800 dark:text-white leading-tight relative">
           Hi, I'm{" "}
           <motion.span
             className="text-indigo-600 dark:text-indigo-400 inline-block"
@@ -112,18 +114,20 @@ export default function Hero() {
         </div>
       </div>
 
-      {/* ✅ Right Image Section */}
-      <div
-        ref={imgRef}
-        className="z-10 md:w-1/2 mb-10 md:mb-0"
-        style={{
-          transform: `translate(${mousePos.x}px, ${mousePos.y}px)`,
-        }}
-      >
+      {/* ✅ Right Image Section with local blob */}
+      <div className="relative z-10 md:w-1/2 mb-10 md:mb-0" ref={imgRef} style={{
+        transform: `translate(${mousePos.x}px, ${mousePos.y}px)`,
+      }}>
+        {/* Blob behind image */}
+        <motion.div
+          className="absolute -bottom-16 -right-16 w-96 h-96 bg-purple-500 opacity-20 rounded-full filter blur-3xl pointer-events-none"
+          animate={{ y: [0, -30, 0], x: [0, -15, 0] }}
+          transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
+        />
         <img
           src="/images/hero.png"
           alt="Hero Illustration"
-          className="w-full max-w-md mx-auto drop-shadow-xl hover:scale-105 transition-transform duration-500 rounded-2xl"
+          className="w-full max-w-md mx-auto drop-shadow-xl hover:scale-105 transition-transform duration-500 rounded-2xl relative"
         />
       </div>
     </section>
