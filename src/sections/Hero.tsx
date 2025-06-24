@@ -1,8 +1,6 @@
 import { useRef, useState, MouseEvent, useLayoutEffect } from "react";
 import Lottie from "lottie-react";
 import { motion } from "framer-motion";
-import Particles from "@tsparticles/react";
-import particlesConfig from "../config/particlesConfig";
 import heroAnim from "../assets/anim/hero-loop.json";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -68,14 +66,9 @@ export default function Hero() {
       className="relative min-h-screen flex flex-col-reverse md:flex-row items-center justify-between px-6 md:px-16 py-10 scroll-mt-20
                  bg-animated-gradient dark:bg-animated-gradient-dark transition-colors duration-1000 overflow-hidden"
     >
-      {/* ✅ Particles without init */}
-      <Particles
-        id="tsparticles"
-        options={particlesConfig}
-        className="absolute inset-0 pointer-events-none"
-      />
+      {/* ❌ Removed Particles */}
 
-      {/* Background Lottie */}
+      {/* ✅ Background Lottie */}
       <Lottie
         animationData={heroAnim}
         loop
@@ -83,7 +76,7 @@ export default function Hero() {
         className="absolute inset-0 w-full h-full object-cover opacity-10 pointer-events-none"
       />
 
-      {/* Left Text Section */}
+      {/* ✅ Left Text Section */}
       <div
         ref={textRef}
         className="z-10 text-center md:text-left md:w-1/2 space-y-6"
@@ -119,7 +112,7 @@ export default function Hero() {
         </div>
       </div>
 
-      {/* Right Image Section */}
+      {/* ✅ Right Image Section */}
       <div
         ref={imgRef}
         className="z-10 md:w-1/2 mb-10 md:mb-0"
